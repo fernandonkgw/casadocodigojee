@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 import br.com.casadocodigo.loja.daos.AutorDao;
 import br.com.casadocodigo.loja.daos.LivroDao;
@@ -34,7 +35,8 @@ public class AdminLivrosBean {
 		LOGGER.info("Instanciando Bean");
 	}
 	
-	public void salvar() {
+	@Transactional
+	public String salvar() {
 		for (Integer autorId : autoresId) {
 			livro.adiciona(new Autor(autorId));
 		}
@@ -42,6 +44,8 @@ public class AdminLivrosBean {
 		livro = new Livro();
 		autoresId = new ArrayList<>();
 		LOGGER.info("Livro cadastrado com sucesso " + livro);
+		
+		return "/livros/lista?faces-redirect=true";
 	}
 	
 	public Livro getLivro() {
