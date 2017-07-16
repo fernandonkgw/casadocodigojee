@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -28,6 +30,8 @@ public class AdminLivrosBean {
 	private LivroDao livroDao;
 	@Inject
 	private AutorDao autorDao;
+	@Inject
+	private FacesContext context;
 	
 	@PostConstruct
 	public void init() {
@@ -37,6 +41,7 @@ public class AdminLivrosBean {
 	
 	@Transactional
 	public String salvar() {
+//		autoresId.stream().map((id) -> {return new Author(id)};).
 		for (Integer autorId : autoresId) {
 			livro.adiciona(new Autor(autorId));
 		}
@@ -44,6 +49,9 @@ public class AdminLivrosBean {
 		livro = new Livro();
 		autoresId = new ArrayList<>();
 		LOGGER.info("Livro cadastrado com sucesso " + livro);
+		
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		context.addMessage(null, new FacesMessage("Livro cadastrado com sucesso"));
 		
 		return "/livros/lista?faces-redirect=true";
 	}
