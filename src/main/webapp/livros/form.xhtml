@@ -7,21 +7,30 @@
 
 <h:body>
 	<h:form>
+		<h:messages/>
 		<div>
 			<h:outputLabel value="Título"/>
-			<h:inputText value="#{adminLivrosBean.livro.titulo}"/>
+			<h:inputText value="#{adminLivrosBean.livro.titulo}" 
+				required="true"/>
 		</div>
 		<div>
 			<h:outputLabel value="Descrição"/>
-			<h:inputTextarea rows="4" cols="8" value="#{adminLivrosBean.livro.descricao}" />
+			<h:inputTextarea rows="4" cols="8" value="#{adminLivrosBean.livro.descricao}" 
+				required="true"/>
 		</div>
 		<div>
 			<h:outputLabel value="Número de Páginas"/>
-			<h:inputText value="#{adminLivrosBean.livro.numeroPaginas}"/>
+			<h:inputText value="#{adminLivrosBean.livro.numeroPaginas}"
+				required="true">
+				<f:validateLongRange minimum="80"/>
+			</h:inputText>
 		</div>
 		<div>
 			<h:outputLabel value="Preço"/>
-			<h:inputText value="#{adminLivrosBean.livro.preco}"/>
+			<h:inputText value="#{adminLivrosBean.livro.preco}"
+				required="true">
+				<f:validateDoubleRange minimum="20" maximum="150"/>	
+			</h:inputText>
 		</div>
 		<div>
 			<h:outputLabel value="Autores"/>
