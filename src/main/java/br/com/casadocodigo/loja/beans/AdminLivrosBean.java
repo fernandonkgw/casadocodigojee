@@ -1,6 +1,5 @@
 package br.com.casadocodigo.loja.beans;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +23,6 @@ public class AdminLivrosBean {
 
 	private final static Logger LOGGER = Logger.getLogger(AdminLivrosBean.class.getName());
 	private Livro livro = new Livro();
-	private List<Integer> autoresId = new ArrayList<>();
 	
 	@Inject
 	private LivroDao livroDao;
@@ -41,13 +39,9 @@ public class AdminLivrosBean {
 	
 	@Transactional
 	public String salvar() {
-//		autoresId.stream().map((id) -> {return new Author(id)};).
-		for (Integer autorId : autoresId) {
-			livro.adiciona(new Autor(autorId));
-		}
+
 		livroDao.salvar(livro);
 		livro = new Livro();
-		autoresId = new ArrayList<>();
 		LOGGER.info("Livro cadastrado com sucesso " + livro);
 		
 		context.getExternalContext().getFlash().setKeepMessages(true);
@@ -64,11 +58,4 @@ public class AdminLivrosBean {
 		return autorDao.listar();
 	}
 	
-	public List<Integer> getAutoresId() {
-		return autoresId;
-	}
-	
-	public void setAutoresId(List<Integer> autoresId) {
-		this.autoresId = autoresId;
-	}
 }

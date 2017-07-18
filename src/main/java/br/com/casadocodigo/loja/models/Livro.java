@@ -3,7 +3,6 @@ package br.com.casadocodigo.loja.models;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,7 +15,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
@@ -45,7 +43,6 @@ public class Livro {
 
 	@ManyToMany
 	@Size(min=1)
-	@NotNull
 	private List<Autor> autores = new ArrayList<>();
 	
 	@Temporal(TemporalType.DATE)
@@ -84,9 +81,13 @@ public class Livro {
 	}
 
 	public List<Autor> getAutores() {
-		return Collections.unmodifiableList(autores);
+		return autores;
 	}
 
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
+	}
+	
 	public Calendar getDataPublicacao() {
 		return dataPublicacao;
 	}
