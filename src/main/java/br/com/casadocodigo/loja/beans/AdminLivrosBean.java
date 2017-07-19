@@ -1,6 +1,5 @@
 package br.com.casadocodigo.loja.beans;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +45,7 @@ public class AdminLivrosBean {
 	public String salvar() {
 		
 		FileSaver fileSaver = new FileSaver();
-		livro.setCapaPath(fileSaver.write(capaLivro, "livros/"));
+		livro.setCapaPath(fileSaver.write(capaLivro, "livros"));
 		livroDao.salvar(livro);
 		livro = new Livro();
 		LOGGER.info("Livro cadastrado com sucesso " + livro);
