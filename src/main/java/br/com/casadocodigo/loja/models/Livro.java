@@ -26,27 +26,29 @@ public class Livro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@NotBlank
 	private String titulo;
-	
+
 	@Lob
-	@Length(min=10)
+	@Length(min = 10)
 	@NotBlank
 	private String descricao;
-	
+
 	@DecimalMin("20")
 	private BigDecimal preco;
-	
+
 	@Min(50)
 	private Integer numeroPaginas;
 
 	@ManyToMany
-	@Size(min=1)
+	@Size(min = 1)
 	private List<Autor> autores = new ArrayList<>();
-	
+
 	@Temporal(TemporalType.DATE)
 	private Calendar dataPublicacao;
+
+	private String capaPath;
 
 	public String getTitulo() {
 		return titulo;
@@ -87,7 +89,7 @@ public class Livro {
 	public void setAutores(List<Autor> autores) {
 		this.autores = autores;
 	}
-	
+
 	public Calendar getDataPublicacao() {
 		return dataPublicacao;
 	}
@@ -96,10 +98,18 @@ public class Livro {
 		this.dataPublicacao = dataPublicacao;
 	}
 
-	public void adiciona(Autor autor){
+	public String getCapaPath() {
+		return capaPath;
+	}
+
+	public void setCapaPath(String capaPath) {
+		this.capaPath = capaPath;
+	}
+
+	public void adiciona(Autor autor) {
 		autores.add(autor);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Livro [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", preco=" + preco
