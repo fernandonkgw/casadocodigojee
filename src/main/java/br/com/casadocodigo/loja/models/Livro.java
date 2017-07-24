@@ -50,6 +50,10 @@ public class Livro {
 
 	private String capaPath;
 
+	public Integer getId() {
+		return id;
+	}
+	
 	public String getTitulo() {
 		return titulo;
 	}

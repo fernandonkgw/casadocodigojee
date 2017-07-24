@@ -21,4 +21,26 @@ public class LivroDao {
 				+ " join fetch l.autores";
 		return manager.createQuery(jpql, Livro.class).getResultList();
 	}
+
+	public List<Livro> ultimosLancamentos() {
+		String jpql = "select distinct(l) from Livro l order by l.id desc";
+		return manager.createQuery(jpql, Livro.class)
+				.setMaxResults(5)
+				.getResultList();
+	}
+
+	public List<Livro> demaisLivros() {
+		String jpql = "select distinct(l) from Livro l order by l.id desc";
+		return manager.createQuery(jpql, Livro.class)
+				.setFirstResult(5)
+				.getResultList();
+	}
+
+	public Livro buscaPorId(Integer id) {
+		
+		String jpql = "select l from Livro l join fetch l.autores where l.id = :id";
+		return manager.createQuery(jpql, Livro.class)
+				.setParameter("id", id)
+				.getSingleResult();
+	}
 }
