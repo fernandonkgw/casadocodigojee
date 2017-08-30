@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/templates/template.xhtml">
+
+	<ui:param name="lista" value="active"/>
+
+	<ui:define name="body">
+		<h1>Lista de Livros</h1>
+		
+		<div>Bem vindo, #{currentUser.get().email}</div>
+		
+		<h:messages/>
+	
+		<h:dataTable value="#{adminListaLivrosBean.livros}" var="livro" 
+			styleClass="table table-bordered table-striped table-hover">
+			<h:column>
+				<f:facet name="header">Título</f:facet>
+				#{livro.titulo}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Descrição</f:facet>
+				#{livro.descricao}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Páginas</f:facet>
+				#{livro.numeroPaginas}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Preço</f:facet>
+				#{livro.preco}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Autores</f:facet>
+				<ui:repeat var="autor" value="#{livro.autores}">
+					#{autor.nome},
+				</ui:repeat>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Capa Path</f:facet>
+				<img src="#{request.contextPath}/file/#{livro.capaPath}" height="30%" />
+			</h:column>
+		</h:dataTable>
+	</ui:define>
+</ui:composition>
+</html>
